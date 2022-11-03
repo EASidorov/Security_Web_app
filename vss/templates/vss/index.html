@@ -1,0 +1,31 @@
+{% extends "vss/base.html" %}
+
+{% block title %}Video Security Systems{% endblock %}
+{% block head %}
+{% endblock %}
+{% block content %}
+<div class="ms-3 mt-3">
+    <div>
+        <p class="text-center fs-3">All cameras</p>
+    </div>
+    <form>
+        <a href="{% url 'vss:add_camera' %}" class="btn btn-primary mb-3">Add camera</a>
+    </form>
+</div>
+<div name="cam_table">
+    <table class="table table-hover">
+        {% for cam in cameras %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ cam.cam_name }}</td>
+            <td>{{ cam.ip }}</td>
+            {% if cam.online %}
+            <td>green</td>
+            {% else %}
+            <td>red</td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
