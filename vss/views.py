@@ -6,7 +6,7 @@ from django.views import generic
 from .models import Camera
 
 
-# Create your views here.
+# Create your views here._
 
 class IndexView(generic.ListView):
     template_name = 'vss/index.html'
@@ -21,26 +21,30 @@ class AddCameraView(generic.ListView):
     template_name = 'vss/add_camera.html'
 
 
-class DetailsView(generic.ListView):
+class DetailsView(generic.DetailView):
     model = Camera
     template_name = 'vss/details.html'
     context_object_name = 'camera'
 
-    def get_queryset(self):
-        pk = 1
-        return Camera.objects.get(pk=pk)
-
 
 def add_camera_action(request):
-    #pk = request.POST['pk']
     cam_name = request.POST['cam_name']
     ip = request.POST['ip']
-    new_cam = Camera(cam_name=cam_name,ip=ip)
+    new_cam = Camera(cam_name=cam_name, ip=ip)
     new_cam.save()
     return HttpResponseRedirect(reverse('vss:index'))
 
 
-def delete_camera_action(request):
-    cam = Camera.object.get(pk='something')
+def change_camera_action(request, pk):
+    cam_name = request.POST['cam_name']
+    ip = request.POST['ip']
+    cam = Camera.objects.get(pk=pk)
+    cam.cam_name, cam.ip = cam_name, ip
+    cam.save()
+    return HttpResponseRedirect(reverse('vss:index'))
+
+
+def delete_camera_action(request, pk):
+    cam = Camera.objects.get(pk=pk)
     cam.delete()
     return HttpResponseRedirect(reverse('vss:index'))

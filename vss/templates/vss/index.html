@@ -2,6 +2,13 @@
 
 {% block title %}Video Security Systems{% endblock %}
 {% block head %}
+<style>
+    table tbody tr:hover {
+        background-color: #B0E2FF;
+    }
+
+
+</style>
 {% endblock %}
 {% block content %}
 <div class="ms-3 mt-3">
@@ -13,10 +20,19 @@
     </form>
 </div>
 <div name="cam_table">
-    <table class="table table-hover">
-        {% for cam in cameras %}
+    <table class="table">
+        <thead>
         <tr>
-            <td>{{ loop.index }}</td>
+            <th>#</th>
+            <th>Name</th>
+            <th>IP Address</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for cam in cameras %}
+            <tr style="transform: rotate(0);">
+            <th scope="row"><a href="{% url 'vss:details' cam.id %}" class="stretched-link">{{ forloop.counter }}</a></th>
             <td>{{ cam.cam_name }}</td>
             <td>{{ cam.ip }}</td>
             {% if cam.online %}
@@ -24,8 +40,9 @@
             {% else %}
             <td>red</td>
             {% endif %}
-        </tr>
+            </tr>
         {% endfor %}
+        </tbody>
     </table>
 </div>
 {% endblock %}

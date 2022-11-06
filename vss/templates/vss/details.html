@@ -5,15 +5,12 @@
 {% endblock %}
 {% block content %}
 
-<form action="{% url 'vss:add_camera_action' %}" method="post">
+<form action="{% url 'vss:change_camera_action' camera.id %}" method="post">
     {% csrf_token %}
     <div class='w-25 mx-auto' align="center">
+        <h2>Camera #{{ camera.id }}</h2>
         <div class="mb-3">
-            <label for="id" class="form-label">Camera id</label>
-            <input type="text" class="form-control" id="id" name="cam_id" value="{{ camera.id }}">
-        </div>
-        <div class="mb-3">
-            <label for="cam_name" class="form-label">Camera name</label>
+            <label for="cam_name" class="form-label">Name</label>
             <input type="text" class="form-control" id="cam_name" name="cam_name" value="{{ camera }}">
         </div>
         <div class="mb-3">
@@ -21,11 +18,15 @@
             <input type="text" class="form-control" id="ip" name="ip" value="{{ camera.ip }}" maxlength="15">
         </div>
         <div align="center">
-            <button type="submit" class="btn btn-primary mb-3">Save changes</button>
-        </div>
-        <div>
-               <a href="{% url 'vss:index' %}" class="btn btn-sm btn-outline-secondary">Back</a>
+                <button type="submit" class="btn btn-primary mb-3" name="save_changes">Save changes</button>
+
         </div>
     </div>
 </form>
+<div class='w-25 mx-auto' align="center">
+<form action="{% url 'vss:delete_camera_action' camera.id %}" method="post">{% csrf_token %}
+                <button type="submit" class="btn btn-danger mb-3" name="delete_camera">Delete camera</button>
+</form>
+               <a href="{% url 'vss:index' %}" class="btn btn-sm btn-outline-secondary">Back</a>
+</div>
 {% endblock %}
