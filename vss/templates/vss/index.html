@@ -6,11 +6,12 @@
     table tbody tr:hover {
         background-color: #B0E2FF;
     }
-
-
 </style>
 {% endblock %}
 {% block content %}
+<div class="container text-center">
+<div class="row justify-content-md-center">
+    <div class="col-4">
 <div class="ms-3 mt-3">
     <div>
         <p class="text-center fs-3">All cameras</p>
@@ -34,15 +35,23 @@
             <tr style="transform: rotate(0);">
             <th scope="row"><a href="{% url 'vss:details' cam.id %}" class="stretched-link">{{ forloop.counter }}</a></th>
             <td>{{ cam.cam_name }}</td>
-            <td>{{ cam.ip }}</td>
+            <td class="ip_address">{{ cam.ip }}</td>
+
+                <!--
             {% if cam.online %}
-            <td>green</td>
+            <td id="status_cam{{ cam.id }}" class="status"></td>
             {% else %}
-            <td>red</td>
+            <td></td>
             {% endif %}
+            -->
             </tr>
+
         {% endfor %}
         </tbody>
     </table>
+</div>
+    </div>
+    <div class="col-8">col-8</div>
+</div>
 </div>
 {% endblock %}
